@@ -59,7 +59,7 @@ def cobalt_strike_template(
 
 
 def sliver_template(
-    jarm: str = "2ad2ad0002ad2ad22c2ad2ad2ad2adce53373cc5b6fc3afc0d849cfe7b6b2",
+    jarm: str = "2ad2ad0002ad2ad22c2ad2ad2ad2adce53373cc5b6fc3afc0d849cfe7b6b20",
 ) -> str:
     template: dict = {
         "id": "sliver-c2-detection",

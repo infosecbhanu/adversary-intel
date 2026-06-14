@@ -23,10 +23,10 @@ from adversary_intel.models import JARMResult
 # Known C2 JARM fingerprints for quick classification
 KNOWN_JARMS: dict[str, str] = {
     "07d14d16d21d21d00042d41d00041de5fb3038104f457d92ba02e9311512c2": "Cobalt Strike (default)",
-    "2ad2ad0002ad2ad22c2ad2ad2ad2adce53373cc5b6fc3afc0d849cfe7b6b2": "Sliver C2",
-    "29d29d15d29d29d00029d29d29d29de85f57a6b9f41f6c7a36cb87bd1c3a7": "Metasploit (default)",
+    "2ad2ad0002ad2ad22c2ad2ad2ad2adce53373cc5b6fc3afc0d849cfe7b6b20": "Sliver C2",
+    "29d29d15d29d29d00029d29d29d29de85f57a6b9f41f6c7a36cb87bd1c3a70": "Metasploit (default)",
     "07d14d16d21d21d07c42d41d00041d24a458a375eef0c576d23a7bab9a9fb1": "Cobalt Strike (variant)",
-    "21d19d00021d21d21c21d19d21d21d3c1e04a0e4d77d1c4c5a8e20c92c92c": "Brute Ratel C4",
+    "21d19d00021d21d21c21d19d21d21d3c1e04a0e4d77d1c4c5a8e20c92c92c0": "Brute Ratel C4",
     "00000000000000000000000000000000000000000000000000000000000000": "TLS not supported",
 }
 
