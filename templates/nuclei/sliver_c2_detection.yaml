@@ -1,0 +1,23 @@
+id: sliver-c2-jarm-detection
+
+info:
+  name: Sliver C2 JARM Detection
+  author: adversary-intel
+  severity: critical
+  description: Detects Sliver C2 framework infrastructure by JARM fingerprint
+  tags:
+    - sliver
+    - c2
+    - jarm
+    - threat-hunting
+  metadata:
+    shodan-query: 'ssl.jarm:"2ad2ad0002ad2ad22c2ad2ad2ad2adce53373cc5b6fc3afc0d849cfe7b6b2"'
+    mitre-attack: T1071.001
+
+tcp:
+  - host:
+      - "{{Hostname}}"
+    matchers:
+      - type: word
+        words:
+          - "2ad2ad0002ad2ad22c2ad2ad2ad2adce53373cc5b6fc3afc0d849cfe7b6b2"

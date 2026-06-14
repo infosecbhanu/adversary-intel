@@ -1,0 +1,34 @@
+title: Cobalt Strike C2 JARM Detection
+id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+status: stable
+description: |
+  Detects Cobalt Strike C2 server connections using the default JARM fingerprint.
+  JARM is an active TLS fingerprinting technique that probes a server's TLS stack.
+  Default Cobalt Strike deployments expose a consistent 62-char JARM hash.
+references:
+  - https://github.com/salesforce/jarm
+  - https://www.cobaltstrike.com/
+author: adversary-intel
+date: 2026/01/01
+tags:
+  - attack.command-and-control
+  - attack.t1071.001
+  - attack.t1059
+  - detection.cobalt_strike
+logsource:
+  category: network_connection
+detection:
+  selection:
+    jarm_hash:
+      - "07d14d16d21d21d00042d41d00041de5fb3038104f457d92ba02e9311512c2"
+      - "07d14d16d21d21d07c42d41d00041d24a458a375eef0c576d23a7bab9a9fb1"
+  filter_legit:
+    dst_ip|cidr:
+      - "1.1.1.0/24"
+      - "8.8.8.0/24"
+      - "208.67.222.0/24"
+  condition: selection and not filter_legit
+falsepositives:
+  - Red team operations using default Cobalt Strike configuration
+  - Security research and testing
+level: critical

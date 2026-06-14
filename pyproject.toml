@@ -1,0 +1,98 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "adversary-intel"
+version = "0.1.0"
+description = "Standalone threat intelligence platform — proactive adversary infrastructure tracking via OSINT, TLS fingerprinting, passive DNS, and open-source threat feeds"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [{ name = "Bhanu" }]
+keywords = ["threat-intelligence", "osint", "jarm", "passive-dns", "adversary-infrastructure", "ctf", "threat-hunting"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Information Technology",
+    "Topic :: Security",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    # HTTP / networking
+    "httpx>=0.27",
+    "aiohttp>=3.9",
+    "requests>=2.31",
+    # TLS / crypto
+    "pyOpenSSL>=24.0",
+    "cryptography>=42.0",
+    # DNS
+    "dnspython>=2.6",
+    "python-whois>=0.9",
+    # Fingerprinting
+    "mmh3>=4.1",           # MurmurHash3 for favicon hashes
+    # Scanning platforms
+    "shodan>=1.31",
+    "censys>=2.2",
+    # Threat feeds
+    "pymisp>=2.4",
+    "OTXv2>=1.5",
+    "vt-py>=0.18",
+    # OpenCTI
+    "pycti>=6.2",
+    # Graph
+    "networkx>=3.3",
+    "matplotlib>=3.9",
+    # CLI
+    "typer[all]>=0.12",
+    "rich>=13.7",
+    # API
+    "fastapi>=0.111",
+    "uvicorn[standard]>=0.30",
+    # Config / data
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "python-dotenv>=1.0",
+    # YAML / output
+    "pyyaml>=6.0",
+    "jinja2>=3.1",
+    # Utilities
+    "tenacity>=8.3",
+    "tqdm>=4.66",
+    "ipaddress",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2",
+    "pytest-asyncio>=0.23",
+    "pytest-httpx>=0.30",
+    "ruff>=0.4",
+    "mypy>=1.10",
+    "types-requests",
+    "types-PyYAML",
+]
+viz = [
+    "pyvis>=0.3",       # interactive HTML graph export
+    "plotly>=5.22",
+]
+
+[project.scripts]
+adversary-intel = "adversary_intel.cli:app"
+ai-hunt = "adversary_intel.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["adversary_intel*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

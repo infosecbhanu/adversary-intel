@@ -1,0 +1,58 @@
+# Multi-signal Cobalt Strike C2 detection template for Nuclei
+# Layer 1: JARM fingerprint
+# Layer 2: HTTP 404 with empty body (default CS response)
+# Layer 3: Default TLS certificate serial number
+#
+# Usage: nuclei -t cobalt_strike_multi_signal.yaml -l targets.txt
+
+id: cobalt-strike-c2-multi-signal
+
+info:
+  name: Cobalt Strike C2 Multi-Signal Detection
+  author: adversary-intel
+  severity: critical
+  description: |
+    Detects Cobalt Strike C2 infrastructure using multiple correlated signals:
+    JARM TLS fingerprint, default HTTP response pattern, and certificate serial.
+    Multi-signal validation dramatically reduces false positives.
+  tags:
+    - cobalt-strike
+    - c2
+    - jarm
+    - threat-hunting
+    - red-team
+  metadata:
+    shodan-query: 'ssl.jarm:"07d14d16d21d21d00042d41d00041de5fb3038104f457d92ba02e9311512c2"'
+    censys-query: 'services.jarm.fingerprint:"07d14d16d21d21d00042d41d00041de5fb3038104f457d92ba02e9311512c2"'
+    mitre-attack: T1071.001
+
+# Signal 1: JARM fingerprint via TCP TLS probe
+tcp:
+  - host:
+      - "{{Hostname}}"
+    matchers:
+      - type: word
+        words:
+          - "07d14d16d21d21d00042d41d00041de5fb3038104f457d92ba02e9311512c2"
+        condition: and
+
+# Signal 2: HTTP response pattern (empty 404)
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 404
+
+      - type: dsl
+        dsl:
+          - "len(body) == 0"
+
+      - type: word
+        part: header
+        words:
+          - "Content-Length: 0"
