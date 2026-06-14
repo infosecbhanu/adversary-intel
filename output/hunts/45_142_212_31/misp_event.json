@@ -1,0 +1,365 @@
+{
+  "Event": {
+    "uuid": "a9a93710-579d-4cc5-80b2-9069c0c08ac1",
+    "info": "[TLP:AMBER] vpnplus.ru Operator Cluster \u2014 Hunt HUNT-20260614-001",
+    "date": "2026-06-14",
+    "threat_level_id": "2",
+    "analysis": "2",
+    "distribution": "1",
+    "Attribute": [
+      {
+        "type": "ip-dst",
+        "value": "45.142.212.31",
+        "comment": "Seed IP; self-signed CN=invalid2.invalid; Google HTTP overlay; Aeza Group AS210644",
+        "Tag": [
+          {
+            "name": "seed"
+          },
+          {
+            "name": "aeza-group"
+          },
+          {
+            "name": "vpnplus"
+          },
+          {
+            "name": "sni-evasion"
+          },
+          {
+            "name": "self-signed-cert"
+          }
+        ],
+        "to_ids": true,
+        "distribution": 1
+      },
+      {
+        "type": "ip-dst",
+        "value": "194.87.27.217",
+        "comment": "vpnplus.ru resolved here Oct 2024; flagged MalwareURL+SOCRadar",
+        "Tag": [
+          {
+            "name": "timeweb"
+          },
+          {
+            "name": "vpnplus"
+          },
+          {
+            "name": "malwareurl"
+          },
+          {
+            "name": "socradar"
+          }
+        ],
+        "to_ids": true,
+        "distribution": 1
+      },
+      {
+        "type": "ip-dst",
+        "value": "77.73.132.40",
+        "comment": "Yahoo.com DigiCert cert; JARM 27d27d...; rocshers.cloud, rocshers.me, onypy.com",
+        "Tag": [
+          {
+            "name": "timeweb"
+          },
+          {
+            "name": "vpnplus"
+          },
+          {
+            "name": "socradar"
+          },
+          {
+            "name": "yahoo-cert-spoof"
+          },
+          {
+            "name": "cdn-front"
+          }
+        ],
+        "to_ids": true,
+        "distribution": 1
+      },
+      {
+        "type": "ip-dst",
+        "value": "194.67.71.147",
+        "comment": "ESET flagged; JARM prefix matches Sliver; likely REG.RU shared hosting",
+        "Tag": [
+          {
+            "name": "regru"
+          },
+          {
+            "name": "eset"
+          },
+          {
+            "name": "sliver-jarm-prefix"
+          }
+        ],
+        "to_ids": true,
+        "distribution": 1
+      },
+      {
+        "type": "ip-dst",
+        "value": "109.71.246.116",
+        "comment": "Aeza Group Moldova; hosted onypy.com and pharaonvpn.duckdns.org",
+        "Tag": [
+          {
+            "name": "aeza-group"
+          },
+          {
+            "name": "vpnplus"
+          },
+          {
+            "name": "suspected"
+          }
+        ],
+        "to_ids": false,
+        "distribution": 1
+      },
+      {
+        "type": "ip-dst",
+        "value": "135.125.181.208",
+        "comment": "OVH FR; operator control plane for vpnplus.ru + mantpartners.com",
+        "Tag": [
+          {
+            "name": "ovh"
+          },
+          {
+            "name": "operator-infra"
+          },
+          {
+            "name": "vpnplus"
+          },
+          {
+            "name": "mantpartners"
+          }
+        ],
+        "to_ids": false,
+        "distribution": 1
+      },
+      {
+        "type": "ip-dst",
+        "value": "188.225.26.236",
+        "comment": "Former onypy.com + secret.onypy.com host; Timeweb Russia",
+        "Tag": [
+          {
+            "name": "timeweb"
+          },
+          {
+            "name": "vpnplus"
+          },
+          {
+            "name": "onypy"
+          }
+        ],
+        "to_ids": false,
+        "distribution": 1
+      },
+      {
+        "type": "domain",
+        "value": "vpnplus.ru",
+        "comment": "Primary operator domain; 10-IP rotation cluster; panel/bot subdomains",
+        "Tag": [
+          {
+            "name": "pivot-domain"
+          },
+          {
+            "name": "vpn-service"
+          },
+          {
+            "name": "regru"
+          },
+          {
+            "name": "telegram-c2"
+          }
+        ],
+        "to_ids": true,
+        "distribution": 1
+      },
+      {
+        "type": "domain",
+        "value": "panel.vpnplus.ru",
+        "comment": "C2/VPN management panel on OVH FR 135.125.181.208",
+        "Tag": [
+          {
+            "name": "c2-panel"
+          },
+          {
+            "name": "vpnplus"
+          }
+        ],
+        "to_ids": true,
+        "distribution": 1
+      },
+      {
+        "type": "domain",
+        "value": "tgbot.vpnplus.ru",
+        "comment": "Telegram bot endpoint \u2014 possible C2 channel",
+        "Tag": [
+          {
+            "name": "telegram-bot"
+          },
+          {
+            "name": "c2"
+          },
+          {
+            "name": "vpnplus"
+          }
+        ],
+        "to_ids": true,
+        "distribution": 1
+      },
+      {
+        "type": "domain",
+        "value": "bot.vpnplus.ru",
+        "comment": "Telegram bot endpoint \u2014 possible C2 channel",
+        "Tag": [
+          {
+            "name": "telegram-bot"
+          },
+          {
+            "name": "c2"
+          },
+          {
+            "name": "vpnplus"
+          }
+        ],
+        "to_ids": true,
+        "distribution": 1
+      },
+      {
+        "type": "domain",
+        "value": "mantpartners.com",
+        "comment": "Co-hosted with vpnplus.ru on OVH FR; has signal. and dashboard. subdomains",
+        "Tag": [
+          {
+            "name": "co-hosted"
+          },
+          {
+            "name": "ovh"
+          },
+          {
+            "name": "suspected"
+          }
+        ],
+        "to_ids": false,
+        "distribution": 1
+      },
+      {
+        "type": "domain",
+        "value": "signal.mantpartners.com",
+        "comment": "signal subdomain \u2014 possible messaging/C2 channel",
+        "Tag": [
+          {
+            "name": "messaging"
+          },
+          {
+            "name": "mantpartners"
+          }
+        ],
+        "to_ids": false,
+        "distribution": 1
+      },
+      {
+        "type": "domain",
+        "value": "onypy.com",
+        "comment": "Appeared on both 77.73.132.40 AND 109.71.246.116 \u2014 cross-cluster shared domain",
+        "Tag": [
+          {
+            "name": "shared-indicator"
+          },
+          {
+            "name": "cross-cluster"
+          }
+        ],
+        "to_ids": false,
+        "distribution": 1
+      },
+      {
+        "type": "domain",
+        "value": "rocshers.cloud",
+        "comment": "Feb 2026 domain on malicious 77.73.132.40; Cloudflare-registered",
+        "Tag": [
+          {
+            "name": "recent-2026"
+          },
+          {
+            "name": "timeweb-kz"
+          }
+        ],
+        "to_ids": false,
+        "distribution": 1
+      },
+      {
+        "type": "domain",
+        "value": "rocshers.me",
+        "comment": "Feb 2026 domain on malicious 77.73.132.40; Cloudflare registrar",
+        "Tag": [
+          {
+            "name": "recent-2026"
+          },
+          {
+            "name": "timeweb-kz"
+          },
+          {
+            "name": "cloudflare"
+          }
+        ],
+        "to_ids": false,
+        "distribution": 1
+      },
+      {
+        "type": "domain",
+        "value": "pharaonvpn.duckdns.org",
+        "comment": "On Aeza Group Moldova IP 109.71.246.116; pharaon/pharaoh VPN brand",
+        "Tag": [
+          {
+            "name": "duckdns"
+          },
+          {
+            "name": "vpn"
+          },
+          {
+            "name": "aeza-moldova"
+          }
+        ],
+        "to_ids": false,
+        "distribution": 1
+      },
+      {
+        "type": "domain",
+        "value": "de01.vpnplus.ru",
+        "comment": "VPN server node (Deutschland 01?); on OVH FR 135.125.181.208",
+        "Tag": [
+          {
+            "name": "vpnplus"
+          },
+          {
+            "name": "server-node"
+          }
+        ],
+        "to_ids": false,
+        "distribution": 1
+      },
+      {
+        "type": "other",
+        "value": "29d3fd00029d29d21c42d43d00041df61f6b5fa6973e9fa14c8155669c6633",
+        "comment": "",
+        "Tag": [],
+        "to_ids": false,
+        "distribution": 1
+      },
+      {
+        "type": "x509-fingerprint-sha1",
+        "value": "80E5CABDF41B68E0BA718F4A1224EFA3",
+        "comment": "CN=invalid2.invalid",
+        "Tag": [
+          {
+            "name": "tls"
+          },
+          {
+            "name": "self-signed"
+          }
+        ],
+        "to_ids": true,
+        "distribution": 1
+      }
+    ]
+  }
+}

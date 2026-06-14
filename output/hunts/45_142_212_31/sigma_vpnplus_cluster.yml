@@ -1,0 +1,41 @@
+title: vpnplus.ru Operator Cluster C2 Detection
+id: 4f9b2a1c-8e3d-4f7b-a123-c2d5e6f7a8b9
+status: experimental
+description: |
+    Detects network connections to the vpnplus.ru adversary infrastructure cluster discovered
+    via seed IP 45.142.212.31 (Aeza Group AS210644). Cluster spans Aeza, Timeweb, OVH hosting.
+    Operator uses Telegram bot C2 channel and SNI-evasion (invalid2.invalid self-signed cert).
+references:
+  - https://github.com/infosecbhanu/adversary-intel
+author: infosecbhanu
+date: 2026-06-14
+tags:
+  - attack.command_and_control
+  - attack.t1071.001
+  - attack.t1090.001
+  - attack.t1568
+logsource:
+  category: network_connection
+  product: windows
+detection:
+  selection_ips:
+    DestinationIp|cidr:
+      - 45.142.212.31/32
+      - 194.87.27.217/32
+      - 77.73.132.40/32
+      - 194.67.71.147/32
+      - 109.71.246.116/32
+  selection_domains:
+    dns.query.name|contains:
+      - vpnplus.ru
+      - mantpartners.com
+      - rocshers.cloud
+      - rocshers.me
+      - onypy.com
+      - pharaonvpn.duckdns.org
+  selection_cert_cn:
+    tls.server.x509.subject.common_name: 'invalid2.invalid'
+  condition: selection_ips or selection_domains or selection_cert_cn
+falsepositives:
+  - Legitimate VPN service traffic (vpnplus.ru brand)
+level: high

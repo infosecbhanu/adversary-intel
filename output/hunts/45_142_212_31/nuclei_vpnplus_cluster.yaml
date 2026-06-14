@@ -1,0 +1,37 @@
+id: vpnplus-cluster-c2-multi
+info:
+  name: vpnplus.ru Operator Cluster C2 Detection
+  author: infosecbhanu
+  severity: high
+  description: |
+    Multi-signal detection for the vpnplus.ru adversary cluster.
+    Checks TLS cert CN=invalid2.invalid (self-signed) and HTTP redirect overlay pattern.
+  tags:
+    - c2
+    - vpn
+    - threat-hunting
+    - aeza-group
+  metadata:
+    shodan-query: ssl.cert.subject.cn:invalid2.invalid
+    jarm: 29d3fd00029d29d21c42d43d00041df61f6b5fa6973e9fa14c8155669c6633
+
+http:
+  - method: GET
+    path:
+      - {{BaseURL}}/
+    matchers-condition: or
+    matchers:
+      - type: word
+        part: header
+        words:
+          - invalid2.invalid
+        name: self-signed-cert-cn
+
+ssl:
+  - address: {{Host}}:{{Port}}
+    matchers:
+      - type: word
+        part: subject
+        words:
+          - invalid2.invalid
+        name: invalid-cert-sni-evasion

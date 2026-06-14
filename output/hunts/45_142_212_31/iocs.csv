@@ -1,0 +1,21 @@
+value,ioc_type,confidence,malicious,tags,first_seen,last_seen,source,context
+45.142.212.31,ip,high,True,seed|aeza-group|vpnplus|sni-evasion|self-signed-cert,,,manual-hunt,Seed IP; self-signed CN=invalid2.invalid; Google HTTP overlay; Aeza Group AS210644
+194.87.27.217,ip,high,True,timeweb|vpnplus|malwareurl|socradar,,,virustotal,vpnplus.ru resolved here Oct 2024; flagged MalwareURL+SOCRadar
+77.73.132.40,ip,high,True,timeweb|vpnplus|socradar|yahoo-cert-spoof|cdn-front,,,virustotal,"Yahoo.com DigiCert cert; JARM 27d27d...; rocshers.cloud, rocshers.me, onypy.com"
+194.67.71.147,ip,medium,True,regru|eset|sliver-jarm-prefix,,,virustotal,ESET flagged; JARM prefix matches Sliver; likely REG.RU shared hosting
+109.71.246.116,ip,medium,False,aeza-group|vpnplus|suspected,,,virustotal-pdns,Aeza Group Moldova; hosted onypy.com and pharaonvpn.duckdns.org
+135.125.181.208,ip,medium,False,ovh|operator-infra|vpnplus|mantpartners,,,virustotal-pdns,OVH FR; operator control plane for vpnplus.ru + mantpartners.com
+188.225.26.236,ip,low,False,timeweb|vpnplus|onypy,,,virustotal-pdns,Former onypy.com + secret.onypy.com host; Timeweb Russia
+vpnplus.ru,domain,high,True,pivot-domain|vpn-service|regru|telegram-c2,,,virustotal-pdns,Primary operator domain; 10-IP rotation cluster; panel/bot subdomains
+panel.vpnplus.ru,domain,high,True,c2-panel|vpnplus,,,virustotal-pdns,C2/VPN management panel on OVH FR 135.125.181.208
+tgbot.vpnplus.ru,domain,medium,True,telegram-bot|c2|vpnplus,,,virustotal-pdns,Telegram bot endpoint — possible C2 channel
+bot.vpnplus.ru,domain,medium,True,telegram-bot|c2|vpnplus,,,virustotal-pdns,Telegram bot endpoint — possible C2 channel
+mantpartners.com,domain,medium,False,co-hosted|ovh|suspected,,,virustotal-pdns,Co-hosted with vpnplus.ru on OVH FR; has signal. and dashboard. subdomains
+signal.mantpartners.com,domain,medium,False,messaging|mantpartners,,,virustotal-pdns,signal subdomain — possible messaging/C2 channel
+onypy.com,domain,medium,False,shared-indicator|cross-cluster,,,virustotal-pdns,Appeared on both 77.73.132.40 AND 109.71.246.116 — cross-cluster shared domain
+rocshers.cloud,domain,medium,False,recent-2026|timeweb-kz,,,virustotal-pdns,Feb 2026 domain on malicious 77.73.132.40; Cloudflare-registered
+rocshers.me,domain,medium,False,recent-2026|timeweb-kz|cloudflare,,,virustotal-pdns,Feb 2026 domain on malicious 77.73.132.40; Cloudflare registrar
+pharaonvpn.duckdns.org,domain,low,False,duckdns|vpn|aeza-moldova,,,virustotal-pdns,On Aeza Group Moldova IP 109.71.246.116; pharaon/pharaoh VPN brand
+de01.vpnplus.ru,domain,medium,False,vpnplus|server-node,,,virustotal-pdns,VPN server node (Deutschland 01?); on OVH FR 135.125.181.208
+29d3fd00029d29d21c42d43d00041df61f6b5fa6973e9fa14c8155669c6633,jarm,medium,False,,,,virustotal,
+80E5CABDF41B68E0BA718F4A1224EFA3,cert_serial,high,True,tls|self-signed,,,manual-tls-probe,CN=invalid2.invalid

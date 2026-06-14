@@ -1,0 +1,467 @@
+{
+  "hunt_id": "HUNT-20260614-001",
+  "seed": "45.142.212.31",
+  "seed_type": "ip",
+  "started_at": "2026-06-14T00:00:00Z",
+  "analyst": "infosecbhanu",
+  "tlp": "TLP:AMBER",
+  "summary": "Hunt initiated on seed IP 45.142.212.31 (Aeza Group, AS210644, Moscow). IP presents a self-signed certificate (CN=invalid2.invalid) with Google HTTP redirect overlay on port 443 — classic SNI evasion / traffic camouflage technique. Pivot via VirusTotal passive DNS on vpnplus.ru (most recent domain, 2025-02-06) revealed a 10-IP rotation cluster spanning Aeza Group (Moldova/Russia), Timeweb (CZ/KZ), Hetzner (FI), and OVH (NL/FR). Three IPs flagged malicious by commercial threat feeds. Operator infrastructure identified: vpnplus.ru management panel subdomains (panel, bot, tgbot, de01, subs) and mantpartners.com (co-hosted on OVH FR 135.125.181.208). Registrar fingerprint: REGRU-RU / ns1.reg.ru + ns2.reg.ru. Cross-cluster shared domain indicator: onypy.com appeared on two cluster IPs. Possible Telegram C2 channel via tgbot.vpnplus.ru and bot.vpnplus.ru. No known public threat feed attribution at time of hunt (OTX: 0 pulses on all cluster domains).",
+  "cluster_name": "vpnplus.ru Operator Cluster",
+  "iocs": [
+    {
+      "value": "45.142.212.31",
+      "ioc_type": "ip",
+      "confidence": "high",
+      "malicious": true,
+      "tags": [
+        "seed",
+        "aeza-group",
+        "vpnplus",
+        "sni-evasion",
+        "self-signed-cert"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "manual-hunt",
+      "context": "Seed IP; self-signed CN=invalid2.invalid; Google HTTP overlay; Aeza Group AS210644"
+    },
+    {
+      "value": "194.87.27.217",
+      "ioc_type": "ip",
+      "confidence": "high",
+      "malicious": true,
+      "tags": [
+        "timeweb",
+        "vpnplus",
+        "malwareurl",
+        "socradar"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal",
+      "context": "vpnplus.ru resolved here Oct 2024; flagged MalwareURL+SOCRadar"
+    },
+    {
+      "value": "77.73.132.40",
+      "ioc_type": "ip",
+      "confidence": "high",
+      "malicious": true,
+      "tags": [
+        "timeweb",
+        "vpnplus",
+        "socradar",
+        "yahoo-cert-spoof",
+        "cdn-front"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal",
+      "context": "Yahoo.com DigiCert cert; JARM 27d27d...; rocshers.cloud, rocshers.me, onypy.com"
+    },
+    {
+      "value": "194.67.71.147",
+      "ioc_type": "ip",
+      "confidence": "medium",
+      "malicious": true,
+      "tags": [
+        "regru",
+        "eset",
+        "sliver-jarm-prefix"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal",
+      "context": "ESET flagged; JARM prefix matches Sliver; likely REG.RU shared hosting"
+    },
+    {
+      "value": "109.71.246.116",
+      "ioc_type": "ip",
+      "confidence": "medium",
+      "malicious": false,
+      "tags": [
+        "aeza-group",
+        "vpnplus",
+        "suspected"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "Aeza Group Moldova; hosted onypy.com and pharaonvpn.duckdns.org"
+    },
+    {
+      "value": "135.125.181.208",
+      "ioc_type": "ip",
+      "confidence": "medium",
+      "malicious": false,
+      "tags": [
+        "ovh",
+        "operator-infra",
+        "vpnplus",
+        "mantpartners"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "OVH FR; operator control plane for vpnplus.ru + mantpartners.com"
+    },
+    {
+      "value": "188.225.26.236",
+      "ioc_type": "ip",
+      "confidence": "low",
+      "malicious": false,
+      "tags": [
+        "timeweb",
+        "vpnplus",
+        "onypy"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "Former onypy.com + secret.onypy.com host; Timeweb Russia"
+    },
+    {
+      "value": "vpnplus.ru",
+      "ioc_type": "domain",
+      "confidence": "high",
+      "malicious": true,
+      "tags": [
+        "pivot-domain",
+        "vpn-service",
+        "regru",
+        "telegram-c2"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "Primary operator domain; 10-IP rotation cluster; panel/bot subdomains"
+    },
+    {
+      "value": "panel.vpnplus.ru",
+      "ioc_type": "domain",
+      "confidence": "high",
+      "malicious": true,
+      "tags": [
+        "c2-panel",
+        "vpnplus"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "C2/VPN management panel on OVH FR 135.125.181.208"
+    },
+    {
+      "value": "tgbot.vpnplus.ru",
+      "ioc_type": "domain",
+      "confidence": "medium",
+      "malicious": true,
+      "tags": [
+        "telegram-bot",
+        "c2",
+        "vpnplus"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "Telegram bot endpoint — possible C2 channel"
+    },
+    {
+      "value": "bot.vpnplus.ru",
+      "ioc_type": "domain",
+      "confidence": "medium",
+      "malicious": true,
+      "tags": [
+        "telegram-bot",
+        "c2",
+        "vpnplus"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "Telegram bot endpoint — possible C2 channel"
+    },
+    {
+      "value": "mantpartners.com",
+      "ioc_type": "domain",
+      "confidence": "medium",
+      "malicious": false,
+      "tags": [
+        "co-hosted",
+        "ovh",
+        "suspected"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "Co-hosted with vpnplus.ru on OVH FR; has signal. and dashboard. subdomains"
+    },
+    {
+      "value": "signal.mantpartners.com",
+      "ioc_type": "domain",
+      "confidence": "medium",
+      "malicious": false,
+      "tags": [
+        "messaging",
+        "mantpartners"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "signal subdomain — possible messaging/C2 channel"
+    },
+    {
+      "value": "onypy.com",
+      "ioc_type": "domain",
+      "confidence": "medium",
+      "malicious": false,
+      "tags": [
+        "shared-indicator",
+        "cross-cluster"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "Appeared on both 77.73.132.40 AND 109.71.246.116 — cross-cluster shared domain"
+    },
+    {
+      "value": "rocshers.cloud",
+      "ioc_type": "domain",
+      "confidence": "medium",
+      "malicious": false,
+      "tags": [
+        "recent-2026",
+        "timeweb-kz"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "Feb 2026 domain on malicious 77.73.132.40; Cloudflare-registered"
+    },
+    {
+      "value": "rocshers.me",
+      "ioc_type": "domain",
+      "confidence": "medium",
+      "malicious": false,
+      "tags": [
+        "recent-2026",
+        "timeweb-kz",
+        "cloudflare"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "Feb 2026 domain on malicious 77.73.132.40; Cloudflare registrar"
+    },
+    {
+      "value": "pharaonvpn.duckdns.org",
+      "ioc_type": "domain",
+      "confidence": "low",
+      "malicious": false,
+      "tags": [
+        "duckdns",
+        "vpn",
+        "aeza-moldova"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "On Aeza Group Moldova IP 109.71.246.116; pharaon/pharaoh VPN brand"
+    },
+    {
+      "value": "de01.vpnplus.ru",
+      "ioc_type": "domain",
+      "confidence": "medium",
+      "malicious": false,
+      "tags": [
+        "vpnplus",
+        "server-node"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal-pdns",
+      "context": "VPN server node (Deutschland 01?); on OVH FR 135.125.181.208"
+    },
+    {
+      "value": "29d3fd00029d29d21c42d43d00041df61f6b5fa6973e9fa14c8155669c6633",
+      "ioc_type": "jarm",
+      "confidence": "medium",
+      "malicious": false,
+      "tags": [],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "virustotal",
+      "context": ""
+    },
+    {
+      "value": "80E5CABDF41B68E0BA718F4A1224EFA3",
+      "ioc_type": "cert_serial",
+      "confidence": "high",
+      "malicious": true,
+      "tags": [
+        "tls",
+        "self-signed"
+      ],
+      "first_seen": "",
+      "last_seen": "",
+      "source": "manual-tls-probe",
+      "context": "CN=invalid2.invalid"
+    }
+  ],
+  "pivot_graph": {},
+  "sigma_rules": [
+    "title: vpnplus.ru Operator Cluster C2 Detection\nid: 4f9b2a1c-8e3d-4f7b-a123-c2d5e6f7a8b9\nstatus: experimental\ndescription: |\n    Detects network connections to the vpnplus.ru adversary infrastructure cluster discovered\n    via seed IP 45.142.212.31 (Aeza Group AS210644). Cluster spans Aeza, Timeweb, OVH hosting.\n    Operator uses Telegram bot C2 channel and SNI-evasion (invalid2.invalid self-signed cert).\nreferences:\n  - https://github.com/infosecbhanu/adversary-intel\nauthor: infosecbhanu\ndate: 2026-06-14\ntags:\n  - attack.command_and_control\n  - attack.t1071.001\n  - attack.t1090.001\n  - attack.t1568\nlogsource:\n  category: network_connection\n  product: windows\ndetection:\n  selection_ips:\n    DestinationIp|cidr:\n      - 45.142.212.31/32\n      - 194.87.27.217/32\n      - 77.73.132.40/32\n      - 194.67.71.147/32\n      - 109.71.246.116/32\n  selection_domains:\n    dns.query.name|contains:\n      - vpnplus.ru\n      - mantpartners.com\n      - rocshers.cloud\n      - rocshers.me\n      - onypy.com\n      - pharaonvpn.duckdns.org\n  selection_cert_cn:\n    tls.server.x509.subject.common_name: 'invalid2.invalid'\n  condition: selection_ips or selection_domains or selection_cert_cn\nfalsepositives:\n  - Legitimate VPN service traffic (vpnplus.ru brand)\nlevel: high\n"
+  ],
+  "nuclei_templates": [
+    "id: vpnplus-cluster-c2-multi\ninfo:\n  name: vpnplus.ru Operator Cluster C2 Detection\n  author: infosecbhanu\n  severity: high\n  description: |\n    Multi-signal detection for the vpnplus.ru adversary cluster.\n    Checks TLS cert CN=invalid2.invalid (self-signed) and HTTP redirect overlay pattern.\n  tags:\n    - c2\n    - vpn\n    - threat-hunting\n    - aeza-group\n  metadata:\n    shodan-query: ssl.cert.subject.cn:invalid2.invalid\n    jarm: 29d3fd00029d29d21c42d43d00041df61f6b5fa6973e9fa14c8155669c6633\n\nhttp:\n  - method: GET\n    path:\n      - {{BaseURL}}/\n    matchers-condition: or\n    matchers:\n      - type: word\n        part: header\n        words:\n          - invalid2.invalid\n        name: self-signed-cert-cn\n\nssl:\n  - address: {{Host}}:{{Port}}\n    matchers:\n      - type: word\n        part: subject\n        words:\n          - invalid2.invalid\n        name: invalid-cert-sni-evasion\n"
+  ],
+  "raw_findings": {
+    "jarm": {
+      "seed_ip_jarm": "d41d8cd98f00b204e9800998ecf8427a9a47c206591df95f625a3dcb50443a0",
+      "vt_reported_jarm": "29d3fd00029d29d21c42d43d00041df61f6b5fa6973e9fa14c8155669c6633",
+      "note": "Seed JARM is all-null (TLS not responding on probe port); VT reports full JARM from historical scan"
+    },
+    "tls_cert": {
+      "cn": "invalid2.invalid",
+      "is_self_signed": true,
+      "serial_hex": "80E5CABDF41B68E0BA718F4A1224EFA3",
+      "serial_dec": "771d1f5358d3952de2201683567b21d",
+      "san": "invalid2.invalid",
+      "port": 443
+    },
+    "http_anomaly": {
+      "description": "Port 443 returns Google-style HTTP 301 redirect over plain HTTP; TLS layer presents self-signed invalid cert. SNI routing / traffic camouflage.",
+      "http_title": "Google redirect",
+      "technique": "CDN-fronting / SNI mismatch overlay"
+    },
+    "seed_asn": {
+      "asn": "AS210644",
+      "org": "Aeza Group LLC",
+      "country": "RU",
+      "city": "Moscow",
+      "bulletproof_adjacent": true,
+      "known_hosting_abuse": true
+    },
+    "pivot_domain": {
+      "domain": "vpnplus.ru",
+      "resolved_to_seed": "2025-02-06",
+      "registrar": "REGRU-RU",
+      "nameservers": [
+        "ns1.reg.ru",
+        "ns2.reg.ru"
+      ]
+    },
+    "cluster_operator_infra": {
+      "control_ip": "135.125.181.208",
+      "control_ip_asn": "OVH SAS AS16276",
+      "control_ip_country": "FR",
+      "subdomains": [
+        "panel.vpnplus.ru",
+        "pan.vpnplus.ru",
+        "de01.vpnplus.ru",
+        "subs.vpnplus.ru",
+        "tgbot.vpnplus.ru",
+        "bot.vpnplus.ru",
+        "signal.mantpartners.com",
+        "dashboard.mantpartners.com"
+      ],
+      "telegram_c2_possible": true
+    },
+    "cluster_ips": [
+      {
+        "ip": "45.142.212.31",
+        "asn": "AS210644",
+        "org": "Aeza Group",
+        "country": "RU",
+        "city": "Moscow",
+        "malicious_vt": 0,
+        "note": "Seed IP"
+      },
+      {
+        "ip": "194.87.27.217",
+        "asn": "AS9123",
+        "org": "Timeweb",
+        "country": "CZ",
+        "city": "Prague",
+        "malicious_vt": 2,
+        "flagged_by": [
+          "MalwareURL",
+          "SOCRadar"
+        ]
+      },
+      {
+        "ip": "77.73.132.40",
+        "asn": "AS9123",
+        "org": "Timeweb",
+        "country": "KZ",
+        "city": "Almaty",
+        "malicious_vt": 1,
+        "flagged_by": [
+          "SOCRadar"
+        ],
+        "jarm": "27d27d27d3fd27d1dc41d41d000000937221baefa0b90420c8e8e41903f1d5",
+        "cert_anomaly": "yahoo.com cert (DigiCert) — CDN-fronted or cert spoofing"
+      },
+      {
+        "ip": "194.67.71.147",
+        "asn": "AS197695",
+        "org": "REG.RU",
+        "country": "RU",
+        "city": "Moscow",
+        "malicious_vt": 2,
+        "suspicious_vt": 1,
+        "flagged_by": [
+          "alphaMountain.ai",
+          "Chong Lua Dao",
+          "ESET"
+        ],
+        "jarm_prefix": "2ad2ad0002ad2ad22c2ad2ad2ad2adce",
+        "jarm_note": "Matches Sliver C2 prefix — likely coincidental (REG.RU shared hosting with 20+ domains)"
+      },
+      {
+        "ip": "109.71.246.116",
+        "asn": "AS210644",
+        "org": "Aeza Group",
+        "country": "MD",
+        "city": "Chisinau",
+        "malicious_vt": 0,
+        "note": "Cluster IP; hosted onypy.com, pharaonvpn.duckdns.org, okypn.ru, sh0tx.ru"
+      },
+      {
+        "ip": "135.125.181.208",
+        "asn": "AS16276",
+        "org": "OVH SAS",
+        "country": "FR",
+        "city": "Roubaix",
+        "malicious_vt": 0,
+        "note": "Operator control plane — vpnplus.ru + mantpartners.com"
+      },
+      {
+        "ip": "188.225.26.236",
+        "asn": "AS9123",
+        "org": "Timeweb",
+        "country": "RU",
+        "city": "Moscow",
+        "malicious_vt": 0,
+        "note": "Former onypy.com host; also hosted secret.onypy.com subdomain"
+      }
+    ],
+    "shared_indicators": {
+      "onypy.com": {
+        "note": "Appeared on 77.73.132.40 (Sep 2024) AND 109.71.246.116 (Aug 2024) — cross-cluster link",
+        "secret_subdomain": "secret.onypy.com at 188.225.26.236 (Jun 2024)"
+      },
+      "vpnplus.ru": {
+        "rotation_count": 10,
+        "span": "Moldova, Russia, Netherlands, Finland, Kazakhstan, Czech Republic, France",
+        "registrar": "REGRU-RU",
+        "nameservers": "ns1.reg.ru / ns2.reg.ru"
+      }
+    },
+    "detection_opportunities": [
+      "TLS cert CN=invalid2.invalid on port 443 with HTTPS traffic",
+      "JARM 29d3fd00029d29d21c42d43d00041df61f6b5fa6973e9fa14c8155669c6633 — unique fingerprint for Shodan pivot",
+      "HTTP redirect overlay on TLS port (SNI evasion) — detect mismatch between HTTP Host and TLS SNI",
+      "vpnplus.ru / mantpartners.com DNS lookups from corporate networks",
+      "Telegram bot C2 pattern: tgbot.vpnplus.ru, bot.vpnplus.ru subdomains"
+    ]
+  }
+}

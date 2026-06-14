@@ -23,11 +23,17 @@ adversary-intel/
 │   │   ├── misp.py         # MISP (open source)
 │   │   ├── opencti.py      # OpenCTI (open source)
 │   │   ├── otx.py          # AlienVault OTX (free)
+│   │   ├── securitytrails.py  # SecurityTrails pDNS + WHOIS pivot (free tier)
 │   │   └── abusech.py      # MalwareBazaar, URLhaus, Feodo, ThreatFox, SSLBL (free)
 │   ├── graph/              # NetworkX infrastructure graph
 │   ├── detection/          # Sigma rule + Nuclei template generation
+│   ├── reporting/          # IOC export (JSON, CSV, MISP, STIX 2.1, TXT)
 │   ├── workflows/          # End-to-end C2 hunt workflow
 │   └── api/                # FastAPI REST API
+├── output/
+│   ├── hunts/              # Per-hunt session reports + IOC exports
+│   │   └── 45_142_212_31/  # Live hunt: vpnplus.ru operator cluster
+│   └── rules/              # Generated Sigma + Nuclei rules
 ├── templates/
 │   ├── sigma/              # Built-in Sigma detection rules
 │   └── nuclei/             # Built-in Nuclei templates
@@ -234,6 +240,58 @@ Zero-key feeds (always active): MalwareBazaar, URLhaus, Feodo Tracker, ThreatFox
 | Compromise Infrastructure | T1584 | pDNS history + activation clustering |
 | Dynamic Resolution | T1568 | Passive DNS pivot chains |
 | Protocol Tunneling | T1572 | JARM TLS stack fingerprinting |
+
+---
+
+## Example: Live hunt — 45.142.212.31 (vpnplus.ru operator cluster)
+
+```bash
+adversary-intel hunt 45.142.212.31
+```
+
+**Findings summary** (hunt `HUNT-20260614-001`):
+
+| Indicator | Type | Confidence | Notes |
+|-----------|------|-----------|-------|
+| `45.142.212.31` | IP | High | Seed; Aeza Group AS210644; CN=invalid2.invalid; SNI evasion |
+| `194.87.27.217` | IP | High | Timeweb CZ; flagged MalwareURL + SOCRadar |
+| `77.73.132.40`  | IP | High | Timeweb KZ; Yahoo cert spoofing; rocshers.cloud, onypy.com |
+| `194.67.71.147` | IP | Medium | REG.RU RU; ESET flagged; Sliver JARM prefix match |
+| `vpnplus.ru` | Domain | High | 10-IP rotation cluster; REGRU-RU / ns1.reg.ru fingerprint |
+| `panel.vpnplus.ru` | Domain | High | C2/VPN management panel on OVH FR |
+| `tgbot.vpnplus.ru` | Domain | Medium | Possible Telegram C2 channel |
+| `80E5CABDF41B68E0BA718F4A1224EFA3` | Cert serial | High | CN=invalid2.invalid self-signed |
+| `onypy.com` | Domain | Medium | Shared across two cluster IPs — cross-cluster link |
+
+**Operator fingerprint:**
+- Registrar: **REGRU-RU**, nameservers: **ns1.reg.ru / ns2.reg.ru**
+- Control plane: **135.125.181.208** (OVH FR) — hosts all vpnplus.ru panel/bot subdomains + mantpartners.com
+- Telegram bot infrastructure: `tgbot.vpnplus.ru`, `bot.vpnplus.ru`
+- Evasion: port 443 presents Google HTTP redirect over plain HTTP; TLS layer shows self-signed `invalid2.invalid` cert (SNI routing camouflage)
+
+Full hunt outputs at `output/hunts/45_142_212_31/`: JSON report, CSV IOC list, MISP event, STIX 2.1 bundle, Sigma rule, Nuclei template.
+
+### Reporting API
+
+```python
+from adversary_intel.reporting import HuntReport, IOCExporter
+from pathlib import Path
+
+report = HuntReport(
+    hunt_id="HUNT-001",
+    seed="45.142.212.31",
+    seed_type="ip",
+    started_at="2026-06-14T00:00:00Z",
+    cluster_name="vpnplus.ru Operator Cluster",
+)
+report.add_ip("194.87.27.217", malicious=True, tags=["timeweb", "socradar"])
+report.add_domain("vpnplus.ru", malicious=True, tags=["pivot-domain"])
+report.add_cert_serial("80E5CABDF41B68E0BA718F4A1224EFA3", cn="invalid2.invalid")
+
+exporter = IOCExporter(report)
+paths = exporter.save_all(Path("./output/hunts/my_hunt"))
+# Writes: report.json, iocs.csv, iocs_malicious.txt, misp_event.json, stix_bundle.json
+```
 
 ---
 

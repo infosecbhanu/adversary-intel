@@ -1,0 +1,209 @@
+{
+  "type": "bundle",
+  "id": "bundle--9aeaf114-689f-4316-811a-8fd56ad3e124",
+  "spec_version": "2.1",
+  "objects": [
+    {
+      "type": "identity",
+      "spec_version": "2.1",
+      "id": "identity--b240b8e8-7aa5-4f04-92d5-f32c5ac2c1a9",
+      "name": "adversary-intel",
+      "identity_class": "system",
+      "created": "2026-06-14T16:22:48.683252+00:00",
+      "modified": "2026-06-14T16:22:48.683252+00:00"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a9506bef-8ddd-4cd3-ba1a-60ce5c200086",
+      "name": "45.142.212.31",
+      "indicator_types": [
+        "malicious-activity"
+      ],
+      "pattern": "[ipv4-addr:value = '45.142.212.31']",
+      "pattern_type": "stix",
+      "valid_from": "2026-06-14T16:22:48.683252+00:00",
+      "created": "2026-06-14T16:22:48.683252+00:00",
+      "modified": "2026-06-14T16:22:48.683252+00:00",
+      "created_by_ref": "identity--b240b8e8-7aa5-4f04-92d5-f32c5ac2c1a9",
+      "labels": [
+        "seed",
+        "aeza-group",
+        "vpnplus",
+        "sni-evasion",
+        "self-signed-cert"
+      ],
+      "description": "Seed IP; self-signed CN=invalid2.invalid; Google HTTP overlay; Aeza Group AS210644"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--bd3dc0d4-ec63-476b-a02a-2f4a435c3d66",
+      "name": "194.87.27.217",
+      "indicator_types": [
+        "malicious-activity"
+      ],
+      "pattern": "[ipv4-addr:value = '194.87.27.217']",
+      "pattern_type": "stix",
+      "valid_from": "2026-06-14T16:22:48.683252+00:00",
+      "created": "2026-06-14T16:22:48.683252+00:00",
+      "modified": "2026-06-14T16:22:48.683252+00:00",
+      "created_by_ref": "identity--b240b8e8-7aa5-4f04-92d5-f32c5ac2c1a9",
+      "labels": [
+        "timeweb",
+        "vpnplus",
+        "malwareurl",
+        "socradar"
+      ],
+      "description": "vpnplus.ru resolved here Oct 2024; flagged MalwareURL+SOCRadar"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--f0d685cd-ea08-4de1-b4a6-6062d1e35225",
+      "name": "77.73.132.40",
+      "indicator_types": [
+        "malicious-activity"
+      ],
+      "pattern": "[ipv4-addr:value = '77.73.132.40']",
+      "pattern_type": "stix",
+      "valid_from": "2026-06-14T16:22:48.683252+00:00",
+      "created": "2026-06-14T16:22:48.683252+00:00",
+      "modified": "2026-06-14T16:22:48.683252+00:00",
+      "created_by_ref": "identity--b240b8e8-7aa5-4f04-92d5-f32c5ac2c1a9",
+      "labels": [
+        "timeweb",
+        "vpnplus",
+        "socradar",
+        "yahoo-cert-spoof",
+        "cdn-front"
+      ],
+      "description": "Yahoo.com DigiCert cert; JARM 27d27d...; rocshers.cloud, rocshers.me, onypy.com"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--6b1e70b1-05fa-45ca-a44f-68cedc0278d5",
+      "name": "194.67.71.147",
+      "indicator_types": [
+        "malicious-activity"
+      ],
+      "pattern": "[ipv4-addr:value = '194.67.71.147']",
+      "pattern_type": "stix",
+      "valid_from": "2026-06-14T16:22:48.683252+00:00",
+      "created": "2026-06-14T16:22:48.683252+00:00",
+      "modified": "2026-06-14T16:22:48.683252+00:00",
+      "created_by_ref": "identity--b240b8e8-7aa5-4f04-92d5-f32c5ac2c1a9",
+      "labels": [
+        "regru",
+        "eset",
+        "sliver-jarm-prefix"
+      ],
+      "description": "ESET flagged; JARM prefix matches Sliver; likely REG.RU shared hosting"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7a798908-467e-4181-8f4a-623da4c710cb",
+      "name": "vpnplus.ru",
+      "indicator_types": [
+        "malicious-activity"
+      ],
+      "pattern": "[domain-name:value = 'vpnplus.ru']",
+      "pattern_type": "stix",
+      "valid_from": "2026-06-14T16:22:48.683252+00:00",
+      "created": "2026-06-14T16:22:48.683252+00:00",
+      "modified": "2026-06-14T16:22:48.683252+00:00",
+      "created_by_ref": "identity--b240b8e8-7aa5-4f04-92d5-f32c5ac2c1a9",
+      "labels": [
+        "pivot-domain",
+        "vpn-service",
+        "regru",
+        "telegram-c2"
+      ],
+      "description": "Primary operator domain; 10-IP rotation cluster; panel/bot subdomains"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--42d59aa6-1768-4618-8ec9-d0408b80967c",
+      "name": "panel.vpnplus.ru",
+      "indicator_types": [
+        "malicious-activity"
+      ],
+      "pattern": "[domain-name:value = 'panel.vpnplus.ru']",
+      "pattern_type": "stix",
+      "valid_from": "2026-06-14T16:22:48.683252+00:00",
+      "created": "2026-06-14T16:22:48.683252+00:00",
+      "modified": "2026-06-14T16:22:48.683252+00:00",
+      "created_by_ref": "identity--b240b8e8-7aa5-4f04-92d5-f32c5ac2c1a9",
+      "labels": [
+        "c2-panel",
+        "vpnplus"
+      ],
+      "description": "C2/VPN management panel on OVH FR 135.125.181.208"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--f50ac573-bdfc-4b56-b0aa-ffb0fe0e1d8f",
+      "name": "tgbot.vpnplus.ru",
+      "indicator_types": [
+        "malicious-activity"
+      ],
+      "pattern": "[domain-name:value = 'tgbot.vpnplus.ru']",
+      "pattern_type": "stix",
+      "valid_from": "2026-06-14T16:22:48.683252+00:00",
+      "created": "2026-06-14T16:22:48.683252+00:00",
+      "modified": "2026-06-14T16:22:48.683252+00:00",
+      "created_by_ref": "identity--b240b8e8-7aa5-4f04-92d5-f32c5ac2c1a9",
+      "labels": [
+        "telegram-bot",
+        "c2",
+        "vpnplus"
+      ],
+      "description": "Telegram bot endpoint \u2014 possible C2 channel"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--602d3f8a-6080-4419-a5a4-7c9d51b6724d",
+      "name": "bot.vpnplus.ru",
+      "indicator_types": [
+        "malicious-activity"
+      ],
+      "pattern": "[domain-name:value = 'bot.vpnplus.ru']",
+      "pattern_type": "stix",
+      "valid_from": "2026-06-14T16:22:48.683252+00:00",
+      "created": "2026-06-14T16:22:48.683252+00:00",
+      "modified": "2026-06-14T16:22:48.683252+00:00",
+      "created_by_ref": "identity--b240b8e8-7aa5-4f04-92d5-f32c5ac2c1a9",
+      "labels": [
+        "telegram-bot",
+        "c2",
+        "vpnplus"
+      ],
+      "description": "Telegram bot endpoint \u2014 possible C2 channel"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--4516f545-f81e-4fca-8c89-e2617097a717",
+      "name": "80E5CABDF41B68E0BA718F4A1224EFA3",
+      "indicator_types": [
+        "malicious-activity"
+      ],
+      "pattern": "[x-custom:value = '80E5CABDF41B68E0BA718F4A1224EFA3']",
+      "pattern_type": "stix",
+      "valid_from": "2026-06-14T16:22:48.683252+00:00",
+      "created": "2026-06-14T16:22:48.683252+00:00",
+      "modified": "2026-06-14T16:22:48.683252+00:00",
+      "created_by_ref": "identity--b240b8e8-7aa5-4f04-92d5-f32c5ac2c1a9",
+      "labels": [
+        "tls",
+        "self-signed"
+      ],
+      "description": "CN=invalid2.invalid"
+    }
+  ]
+}
